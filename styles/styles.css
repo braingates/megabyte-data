@@ -935,8 +935,8 @@ margin: 12px;
   box-shadow: #333 0 2px 8px;
 }
 .network img:hover {
-   width: 120px;
-  border-radius: 25px;
+   width: 110px;
+  
   cursor: pointer;
   
 }
@@ -1767,7 +1767,7 @@ footer{
           }
 
           .network img:hover {
-          width: 65px;
+          width: 50px;
           
           }
           .network h2 {
@@ -1833,7 +1833,7 @@ footer{
           }
 
           .network img:hover {
-          width: 65px;
+          width: 50px;
           
           }
           .network h2 {
@@ -1914,7 +1914,7 @@ footer{
           }
 
           .network img:hover {
-          width: 65px;
+          width: 50px;
           
           }
           .network h2 {
@@ -1953,11 +1953,12 @@ footer{
             font-size:10 ;
           }
           .network img {
-          width: 80px;
+          width: 50px;
           border-radius: 14px;
           margin: 2px;
  
           }
+       
            .network-container {
               padding: 6px;
             }
