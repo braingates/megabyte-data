@@ -31,28 +31,17 @@
 
 
 .logo {
-  font-size: 18px;
-  font-weight: bold;
   color: rgb(12, 159, 208);
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-style: italic;
-  border: solid rgb(76, 67, 70) 2px;
-  border-radius: 12px;
-  padding: 6px 6px;
-  cursor: pointer;
-  background-color: #13131C;
-  
+
 }
 .logo img {
   width: 60px;
   border-radius: 10px;
+  cursor: pointer
 }
-.logo h1 {
-  margin: 0;
-  cursor: pointer;
-}
+
 
 /* NAV LINKS */
 .nav-links {
