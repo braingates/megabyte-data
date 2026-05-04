@@ -26,11 +26,12 @@
   background: #01021c;
   color: #fff;
   position: relative;
+  margin-bottom: 50px;
 }
 
 
 .logo {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: bold;
   color: rgb(12, 159, 208);
   display: flex;
@@ -42,6 +43,7 @@
   padding: 6px 6px;
   cursor: pointer;
   background-color: #13131C;
+  
 }
 .logo h1 {
   margin: 0;
@@ -117,11 +119,181 @@
 
   
   }
+
+
+
+/* =========================
+   GLOBAL RESET
+========================= */
+
+
+/* =========================
+   HERO SECTION
+========================= */
+
+
+/* subtle glow effect */
+
+
+/* =========================
+   TEXT
+========================= */
+/*
+.hero h1 {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 15px;
+}
+
+.hero h1 span {
+  color: #38bdf8;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+/*
+.btn:hover {
+  background: #0ea5e9;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(56, 189, 248, 0.35);
+}
+
+/* =========================
+   FEATURES
+========================= */
+/*
+.features {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.feature {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  backdrop-filter: blur(10px);
+  transition: 0.3s;
+}
+
+.feature:hover {
+  transform: translateY(-3px);
+  background: rgba(56, 189, 248, 0.1);
+  color: #e2e8f0;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+/*
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+/*
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .btn {
+    padding: 12px 22px;
+  }
+}
+
+*/
+
+
+
+
+.hook {
+      
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6px;
+      background: var(--bg);
+      margin-bottom: 30px;
+     
+    }
+
+    .hook-content {
+      max-width: fit-content;
+    }
+
+    .hook h1 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      line-height: 1.3;
+    }
+
+    .hook h1 span {
+      color: var(--at);
+    }
+
+    .hook p {
+      font-size: 1.1rem;
+      color: var(--at);
+      margin-bottom: 25px;
+    }
+
+  
+
+    .btn:hover {
+      background: #0ea5e9;
+      transform: translateY(-2px);
+    }
+
+    .features {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 1rem;
+      color: #94a3b8;
+    }
+
+    .feature {
+      background: rgba(255,255,255,0.05);
+      padding: 10px 15px;
+      border-radius: 6px;
+    }
+
+
   .notice-container {
     display: flex;
     padding: 10px 0px;
     justify-content: center;
-    margin: 20px 60px;
+    margin: 6px;
     flex-wrap: wrap;
     justify-content: center;
      background-color: rgba(133, 130, 130, 0.3);
@@ -607,7 +779,7 @@ a .sign-up-btn:hover{
   width: 60px;
   height: 60px;
 
-  background-color: #55ef2a;
+  background-color: #26a503;
   color: #fff;
 
   border-radius: 50%;
@@ -768,6 +940,7 @@ nav {
   place-content: center;
   justify-content: center;
   padding: 10px;
+  height: auto;
  
 }
 .network-container h1 {
@@ -1255,22 +1428,27 @@ button {
 .track-container {
   display: grid;
   max-width:  480px;
-  margin: 30px auto;
+  margin: 8px auto;
   text-align: center;
   font-family: Arial;
-  padding: 10px;
+  padding: 4px;
   align-items: center;
   justify-content: center;
   place-content: center;
+  
+}
 
-  
-  
+.track-container span {
+  color: rgb(123, 118, 118);
+  font-family: arial;
+  font-size: 16px;
+  margin: 8px;
 }
 
 .search-box {
   align-items: center;
   vertical-align: middle;
-  margin-top: 20px;
+  margin-top: 10px;
   gap: 20px;
 }
 
@@ -1528,7 +1706,7 @@ footer{
 }
 .intro {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   background-color: rgb(5, 2, 36);
   width:210px;
   height: 280px;
@@ -1541,7 +1719,7 @@ footer{
   backdrop-filter: blur;
   z-index: 1;
   border: solid rgb(197, 192, 192) 1px;
-   font-size: 25px;
+   font-size: 20px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-style: italic;
   transition: all 0.3s ease-in-out;
@@ -1567,9 +1745,9 @@ footer{
             
           
 .check-icon{
-  font-size: 40px;
+  font-size: 35px;
   font-style: normal;
-  
+  margin-bottom: 30px;
 }
 
 /* ANIMATION */
