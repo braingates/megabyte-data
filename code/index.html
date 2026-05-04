@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Megabyte station</title>
+
+  <link rel="stylesheet" href="/styles/styles.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+  <nav class="navbar">
+    
+    <!-- Logo -->
+    <div class="logo">
+      <h1>MS</h1>
+    </div>
+
+    <!-- Hamburger -->
+   <!--
+    <div class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+     </div> -->
+
+  
+
+    <!-- Nav Links -->
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#">Home</a></li>
+      <li><a href="#buy-data">Buy Data</a></li>
+      <li><a href="#about">About us</a></li>
+      <li><a href="#quick-links">Contact</a></li>
+    </ul>
+
+    <!-- Right Actions -->
+    <div class="nav-right">
+      <div class="theme-toggle" id="themeToggle">
+        <span id="lightIcon"><i class="fas fa-moon"></i></span>
+        <span id="darkIcon"><i class="fas fa-sun"></i></span>
+        
+        
+      </div>
+
+        <div class="menu-toggle" id="menuToggle">
+  <i class="fas fa-bars" id="openIcon"></i>
+  <i class="fas fa-times" id="closeIcon"></i>
+  </div>
+
+      <div class="login-signup" id="user-actions"></div>
+     </div> 
+
+  </nav>
+
+  
+  <section class="network-section-1" id="buy-data">
+
+   <div class="network-container">
+     <h1>Select Network</h1>
+    <div class="networks">
+     
+      <div class="network mtn-network">
+        <img src="../images/mtn-logo.jpg" alt="MTN Logo">
+        <h2 class="mtn">MTN</h2>
+        <p>Tap to view bundles</p>
+      </div>
+       <div class="network telecel-network">
+        <img src="../images/telecel-logo.png" alt="Telecel Logo">
+      <h2 class="telecel">Telecel</h2>
+      <p>Tap to view bundles</p>
+      </div>
+      <div class="network airteltigo-network">
+        <img src="../images/airteltigo-logo.png" alt="Airtel Logo">
+      <h2 class="airteltigo">AirtelTigo</h2>
+      <p>Tap to view bundles</p>
+      </div>
+     
+    </div>
+    
+  </section>
+
+<!--main will end here-->
+
+ 
+<div class="track-container">
+  <a href="orders.html"><button class="tab-btn" data-tab="ordersTab">View Recent Orders</button></a>
+
+  <h2>Track Your Order</h2>
+
+  <div class="search-box">
+    <input type="text" id="trackSearchInput"
+           placeholder="Enter Order ID or Phone Number">
+    
+    <button id="trackSearchBtn">Track</button>
+  </div>
+
+  <div id="trackResult" class="result-box"></div>
+
+</div>
+
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Search bundles (e.g. 10GB, MTN, GHS 50)">
+  
+  <select id="networkFilter">
+    <option value="all">All Networks</option>
+    <option value="MTN">MTN</option>
+    <option value="Telecel">Telecel</option>
+    <option value="AirtelTigo">AirtelTigo</option>
+  </select>
+</div>  
+
+
+
+
+
+<div id="checkoutModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeModal">&times;</span>
+
+    <h2>Confirm Purchase</h2>
+
+   <!-- <div class="checkout-details">
+      <p><strong>Network:</strong> <span id="checkoutNetwork"></span></p>
+      <p><strong>Bundle:</strong> <span id="checkoutBundle"></span></p>
+      <p><strong>Price:</strong> <span id="checkoutPrice"></span></p>
+     </div> -->
+    <div class="checkout-details">
+  <p><strong>Network:</strong> <span id="checkoutNetwork"></span></p>
+  <p><strong>Bundle:</strong> <span id="checkoutBundle"></span></p>
+  <p><strong>Price:</strong> <span id="checkoutPrice"></span></p>
+
+  <hr>
+
+  <!--<p><strong>Processing Fee:</strong><span> GHS</span> <span id="checkoutFee">0.00</span></p>
+  <p><strong>Total:</strong> <span>GHS</span> <span id="checkoutTotal">0.00</span></p>-->
+
+<p>Fee: <span id="checkoutFee"></span></p>
+<p>Total: <span id="checkoutTotal"></span></p>
+</div>
+
+    <input 
+      type="tel" 
+      id="phoneNumber" 
+      placeholder="Enter phone number (e.g. 024XXXXXXX)" 
+    />
+
+    <button id="confirmPurchase" class="confirm-btn">Confirm Purchase</button>
+  </div>
+</div>
+
+
+<div id="summaryModal" class="modal">
+  <div class="modal-content">
+
+    <span class="close" id="closeSummary">&times;</span>
+
+    <h2>Order Summary</h2>
+
+    <div class="row">
+      <span>Network:</span>
+      <span id="sumNetwork"></span>
+    </div>
+
+    <div class="row">
+      <span>Bundle:</span>
+      <span id="sumBundle"></span>
+    </div>
+
+    <div class="row">
+      <span>Phone:</span>
+      <span id="sumPhone"></span>
+    </div>
+
+    <div class="row">
+      <span>Price:</span>
+      <span id="sumPrice"></span>
+    </div>
+
+    <div class="row">
+      <span>Fee:</span>
+      <span id="sumFee"></span>
+    </div>
+
+    <div class="row total">
+      <span>Total:</span>
+      <span id="sumTotal"></span>
+    </div>
+      <button id="editBtn">Edit</button>
+    <button id="finalConfirm">Proceed to Payment</button>
+    
+
+  </div>
+</div>
+
+
+<div id="paymentModal" class="payment-modal hidden">
+  <div class="payment-box">
+    <h2>Payment Successful 🎉</h2>
+    <p id="paymentText">Confirming your order...</p>
+
+    <div class="loader"></div>
+
+    <button onclick="closePaymentModal()">Close</button>
+  </div>
+</div>
+
+
+    <a 
+      href="https://whatsapp.com/channel/0029VbD6qGV5Ejy7bsj3gT2R" 
+      class="whatsapp-float" 
+      target="_blank"
+      aria-label="Chat on WhatsApp"
+    >
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+
+<!-- <section class="active-page" id="activePage"></section> -->
+
+<!-- <div class="bundle-sections"> -->
+<div class="notice-container"><p class="notice">Please note that, we do not refund for wrong numbers.
+   Always check your number before placing an order.</p> 
+   <p class="notice-2">Delivery may delay depending on network conditions. 
+    But we always ensure your order is delivered as soon as possible.</p>
+   
+  </div>
+  
+  <section class="bundle-section" id="mtn">
+    <h1>MTN Bundles</h1> 
+  <div class="bundle-container">  
+   
+<div class="bundle mtn-bundle">
+    <h2>MTN</h2>
+    <p class="package">1GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 4.98</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle mtn-bundle">
+    <h2>MTN</h2>
+    <p class="package">2GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 10.20</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle mtn-bundle">
+    <h2>MTN</h2>
+    <p class="package">3GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 14.20</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle mtn-bundle">
+    <h2>MTN</h2>
+    <p class="package">4GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 18.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle mtn-bundle">
+    <h2>MTN</h2>
+    <p class="package">5GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 23.80</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle mtn-bundle">
+    <h2>MTN</h2>
+    <p class="package">6GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 27.60</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle mtn-bundle">
+    <h2>MTN</h2>
+    <p class="package">8GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 37.50</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+
+    <div class="bundle mtn-bundle">
+    <h2>MTN</h2>
+    <p class="package">10GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 44.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <!--
+  <div class="bundle mtn-bundle">
+    <h2>MTN</h2>
+    <p class="package">12GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 59.90</p>
+    <button class="buy-btn">Buy</button>
+   </div> -->
+
+  <div class="bundle mtn-bundle">
+    <h2>MTN</h2>
+    <p class="package">15GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 68.98</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <!--
+<div class="bundle mtn-bundle">
+    <h2>MTN</h2>
+    <p class="package">18GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 82.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>-->
+
+  <div class="bundle mtn-bundle">
+    <h2>MTN</h2>
+    <p class="package">20GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 85.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle mtn-bundle">
+    <h2>MTN</h2>
+    <p class="package">25GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 109.90 </p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle mtn-bundle">
+    <h2>MTN</h2>
+    <p class="package">30GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 128.99</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle mtn-bundle">
+    <h2>MTN</h2>
+    <p class="package">40GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 168.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle mtn-bundle">
+    <h2>MTN</h2>
+    <p class="package">50GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 210.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+ 
+  </div>
+</section>
+
+<section class="bundle-section"  id="telecel">
+  <h1>Telecel Bundles</h1>
+  <div class="bundle-container">  
+
+    <div class="bundle telecel-bundle">
+    <h2>Telecel</h2>
+    <p class="package">2GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 10.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+   <div class="bundle telecel-bundle">
+    <h2>Telecel</h2>
+    <p class="package">3GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 15.80</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle telecel-bundle">
+    <h2>Telecel</h2>
+    <p class="package">5GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 24.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+   <div class="bundle telecel-bundle">
+    <h2>Telecel</h2>
+    <p class="package">10GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 44.80</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+   <div class="bundle telecel-bundle">
+    <h2>Telecel</h2>
+    <p class="package">15GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 64.50</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+   <div class="bundle telecel-bundle">
+    <h2>Telecel</h2>
+    <p class="package">20GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 80.50</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+
+   <div class="bundle telecel-bundle">
+    <h2>Telecel</h2>
+    <p class="package">30GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 120.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+   <div class="bundle telecel-bundle">
+    <h2>Telecel</h2>
+    <p class="package">50GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 198.50</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+  <!--
+   <div class="bundle telecel-bundle">
+    <h2>Telecel</h2>
+    <p class="package">100GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 300</p>
+    <button class="buy-btn">Buy Now</button>
+  </div>
+  
+   <div class="bundle telecel-bundle">
+    <h2>Telecel</h2>
+    <p class="package">50GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 5.50</p>
+    <button class="buy-btn">Buy Now</button>
+  </div>
+
+   <div class="bundle telecel-bundle">
+    <h2>Telecel</h2>
+    <p class="package">50GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 5.50</p>
+    <button class="buy-btn">Buy Now</button>
+  </div>
+
+   <div class="bundle telecel-bundle">
+    <h2>Telecel</h2>
+    <p class="package">50GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 5.50</p>
+    <button class="buy-btn">Buy Now</button>
+  </div>
+
+    <div class="bundle telecel-bundle">
+    <h2>Telecel</h2>
+    <p class="package">50GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 5.50</p>
+    <button class="buy-btn">Buy Now</button>
+  </div>
+   -->
+  </div>
+</section>
+
+<section class="bundle-section"  id="airteltigo">
+  <h1>AirtelTigo Bundles</h1>
+  <div class="bundle-container">  
+  <div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">1GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 4.98</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+<div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">2GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 9.80</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">3GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 13.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">4GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 17.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">5GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 21.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">6GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 26.30</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">7GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 30.20</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">8GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 33.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">9GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 37.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">10GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 42.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+    <div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">12GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 49.50</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">15GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 62.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+ 
+
+  <div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">20GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 83.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">25GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 102.50</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">30GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 123.80</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">40GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 156.80</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+  <div class="bundle  airteltigo-bundle">
+    <h2>AirtelTigo</h2>
+    <p class="package">50GB</p>
+    <p class="validity">90 days validity</p>
+    <p class="price">GHS 201.90</p>
+    <button class="buy-btn">Buy</button>
+  </div>
+
+ </div>
+ </section>
+
+<section class="intro-section" id="about">
+  <div class="intro-container">
+    <h2>Why choose us</h2>
+    <div class="intro"><div class="check-icon"><i class="fas fa-database"></i></div><p>Supports all networks (MTN, Telecel & AT)</p></div>
+    <div class="intro"><div class="check-icon"><i class="fas fa-rocket"></i></div><p>Fast delivery (Within 35 minutes)</p></div>
+    <div class="intro"><div class="check-icon"><i class="fas fa-mobile"></i></div><p><span>24/7</span> Customer service</p></div>
+    <div class="intro"><div class="check-icon"><i class="fas fa-lightbulb"></i></div><p>Affordable prices (Save 60% on bundle)</p></div>
+    <div class="intro"><div class="check-icon"><i class="fas fa-clock"></i></div><p> Reliable service</p></div>
+    <div class="intro"><div class="check-icon"><i class="fas fa-lock"></i></div><p>Secure payment gateway</p></div>
+  </div>
+ 
+</section>
+
+<footer>
+
+ 
+  
+  <section id="quick-links">
+ 
+     <div class="footer-element">
+      <div class="working-hours">
+    <h2>Working Hours</h2>
+  <p class="days">Monday - Suturday</p>
+  <p><span>7:00 AM - 10:00 PM</span></p>
+  <p class="days">Sunday</p>
+  <p><span>8:00 AM - 9:00 PM</span></p>
+ </div>
+
+     <div class="contact-icon-head">
+      <div class="contact-head">
+      <h2>Need Help?</h2>
+     <p>Contact Us</p> 
+      </div>
+  
+  <div class="contact-icons">
+    <a href="https://wa.me/+233506932474" target="_blank"><i class="fab fa-whatsapp"></i></a> 
+    <a href="tel:+233506932474" target="_blank"><i class="fas fa-phone"></i></a>
+    <a href="https://t.me/+233506932474" target="_blank"><i class="fab fa-telegram"></i></a> 
+    <a href="mailto:braingate84@mail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+    <!-- <a href="https://www.youtube.com/@braingateway" target="_blank"><i class="fab fa-youtube"></i></a> -->
+  </div>
+  </div>
+  </div>
+
+  
+  </section>
+     
+  <div class="copyright">
+    
+ &copy; 2026 Megabytestation. All Rights Reserved.
+  </div>
+   <div class="owener">
+    Powered by: <span>braingate</span> 
+   </div>
+  </footer>
+<!-- <script src="/scripts/admin.js"></script> -->
+<!-- <script type="module" src="admin.js"></script> -->
+<script type="module" src="./api.js"></script>
+<script type="module" src="./ui.js"></script>
+<script type="module" src="./checkout.js"></script>
+<script type="module" src="./main.js"></script>
+
+
+
+</body>
+</html>
