@@ -45,6 +45,10 @@
   background-color: #13131C;
   
 }
+.logo img {
+  width: 60px;
+  border-radius: 10px;
+}
 .logo h1 {
   margin: 0;
   cursor: pointer;
@@ -78,21 +82,30 @@
   gap: 15px;
   margin-left: 0;
   cursor: pointer;
+  width: fit-content;
+ 
 }
+
 
 /* HAMBURGER */
 .menu-toggle {
   display: none;
   font-size: 24px;
   cursor: pointer;
+  
 }
+
+
 
 /* ==========================
    MOBILE VIEW
 ========================== */
 @media (max-width: 768px) {
 
-
+.logo img {
+  width: 40px;
+  border-radius: 10px;
+}
 
   .menu-toggle {
     display: block;
@@ -263,6 +276,8 @@
       font-size: 1.1rem;
       color: var(--at);
       margin-bottom: 25px;
+      font-family: Arial, Verdana, sans-serif;
+      letter-spacing: 1px;
     }
 
   
