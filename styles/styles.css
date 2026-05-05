@@ -1956,6 +1956,9 @@ footer{
         .bundle {
         width: 160px;
       }
+      .bundle h2 {
+        font-size: 26px;
+      }
       .bundle-container {
         padding: 6px;
       }
@@ -2030,6 +2033,9 @@ footer{
 
                     .bundle {
         width: 156px;
+      }
+      .bundle h2 {
+        font-size: 24px;
       }
       .bundle-container {
         padding: 6px;
@@ -2110,6 +2116,9 @@ footer{
             width: 100%;
             margin: 4px;
           }
+          .bundle h2 {
+            font-size: 22px;
+          }
 
   
         }
@@ -2150,6 +2159,9 @@ footer{
           }
           .package {
             font-size:12 ;
+          }
+          .bundle h2 {
+            font-size: 22px;
           }
             .network-container {
               padding: 6px;
@@ -2227,6 +2239,9 @@ footer{
           }
           .package {
             font-size:10 ;
+          }
+          .bundle h2 {
+            font-size: 20px;
           }
           .network img {
           width: 50px;
