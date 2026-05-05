@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>orders</title>
+  <link rel="stylesheet" href="../styles/styles.css">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+<div id="ordersTab" class="tab-content">
+<a href="megabyte.html"><button class="tab-btn" data-tab="ordersTab">
+  <i class="fas fa-arrow-left"></i>Back to dashboard</button></a>
+  <div class="dashboard">
+
+    <h2>My Orders</h2>
+
+    <!-- Search -->
+    <div class="dashboard-search">
+      <input type="text" id="trackInput"
+        placeholder="Enter Order ID or Phone Number">
+      <button id="trackBtn">Search</button>
+    </div>
+
+    <!-- Summary -->
+    <div id="orderSummary" class="summary-card hidden"></div>
+
+    <!-- Table -->
+    <div class="table-wrapper">
+      <table class="dashboard-table">
+        <thead>
+          <tr>
+            <th>Reference</th>
+            <th>Phone</th>
+            <th>Network</th>
+            <th>Bundle</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="ordersTableBody"></tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<script type="module" src="api.js"></script>
+<script type="module" src="ui.js"></script>
+<script type="module" src="checkout.js"></script>
+<script type="module" src="main.js"></script>
+
+</body>
+</html>

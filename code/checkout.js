@@ -51,32 +51,14 @@ const data = await res.json();
       }
 
       resultBox.innerHTML = `
-      
-  <table class="track-table">
-    <thead>
-      <tr>
-        <th>Reference</th>
-        <th>Phone</th>
-        <th>Network</th>
-        <th>Bundle</th>
-        <th>Status</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>${data.reference}</td>
-        <td>${data.phone}</td>
-        <td>${data.network}</td>
-        <td>${data.bundle}</td>
-        <td class="status ${data.vendorStatus}">
-          ${data.vendorStatus}
-        </td>
-        <td>${new Date(data.createdAt).toLocaleString()}</td>
-        
-      </tr>
-    </tbody>
-  </table>
+      <p><b>Reference:</b> ${data.reference}</p>
+      <p>Phone: ${data.phone}</p>
+      <p>Network: ${data.network}</p>
+      <p>Bundle: ${data.bundle}</p>
+       <div>Status: <p class="status ${data.vendorStatus}">${data.orderStatus}</p></div>
+      <p>Date: ${new Date(data.createdAt).toLocaleString()}</p>
+  
+    
 `;
       
 
@@ -255,7 +237,7 @@ finalConfirm?.addEventListener("click", async (e) => {
 
 
 
-
+/*
 window.addEventListener("load", async () => {
   const params = new URLSearchParams(window.location.search);
 
@@ -285,6 +267,38 @@ window.addEventListener("load", async () => {
   }
 }, 5000);
 
+*/
+
+window.addEventListener("load", async () => {
+  const params = new URLSearchParams(window.location.search);
+  const reference = params.get("reference");
+
+  if (!reference) return;
+
+  try {
+    const res = await fetch(
+      `https://data-bundle-backend.onrender.com/api/payments/verify/${reference}`
+    );
+
+    const data = await res.json();
+
+    if (data.success) {
+      showModal(
+        "success",
+        "Payment confirmed. Your data bundle is being delivered."
+      );
+    } else {
+      showModal(
+        "error",
+        "Payment verification failed. Contact support."
+      );
+    }
+
+  } catch (err) {
+    console.error(err);
+    showModal("error", "Network error during verification.");
+  }
+});
 
 ////////////////////////////////////////////////////
 
@@ -382,6 +396,33 @@ document.getElementById("editBtn")?.addEventListener("click", () => {
     sessionStorage.removeItem("orderStatus");
     sessionStorage.removeItem("orderMessage");
   });
+
+
+
+
+  function showModal(type, message) {
+  const modal = document.getElementById("orderModal");
+  const title = document.getElementById("modalTitle");
+  const text = document.getElementById("modalMessage");
+
+  modal.classList.remove("hidden", "modal-success", "modal-failed");
+
+  if (type === "success") {
+    modal.classList.add("modal-success");
+    title.innerText = "✅ Order Successful";
+  } else {
+    modal.classList.add("modal-failed");
+    title.innerText = "❌ Order Failed";
+  }
+
+  text.innerText = message;
+
+  modal.classList.remove("hidden");
+}
+
+document.getElementById("modalClose").onclick = () => {
+  document.getElementById("orderModal").classList.add("hidden");
+};
 
 
 
@@ -573,3 +614,5 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 */
+
+
