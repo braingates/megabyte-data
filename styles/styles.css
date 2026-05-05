@@ -2107,7 +2107,7 @@ footer{
                       font-size: 20px;
                     }
          .bundle {
-        width: 152px;
+        width: 148px;
       }
       .bundle-container {
         padding: 6px;
@@ -2143,7 +2143,14 @@ footer{
              display: grid;
            grid-template-columns: auto auto;
           }
+
+          .bundle {
+        width: 148px;
+      }
           
+      .bundle h2 {
+        font-size: 20px;
+      }
           .track-table {
             width: 100%;
             margin: 4px;
@@ -2225,8 +2232,17 @@ footer{
           } 
           .bundle-container {
            display: grid;
-           grid-template-columns: auto;
+           grid-template-columns: auto auto;
           }
+
+          
+          .bundle {
+        width: 146px;
+      }
+          
+      .bundle h2 {
+        font-size: 20px;
+      }
           .bundle-section{
             display: grid;
             place-content: center;
