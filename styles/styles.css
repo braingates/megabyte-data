@@ -2184,7 +2184,7 @@ footer{
             
           }
          .network {
-          width: 90px;
+          width: 88px;
           height: fit-content;
           padding: 2px;
           margin: 0;
@@ -2228,8 +2228,11 @@ footer{
           }
           .networks {
             flex-wrap: wrap;
-            flex-direction: column;
+            flex-direction: row;
           } 
+          .network {
+            width: 82px;
+          }
           .bundle-container {
            display: grid;
            grid-template-columns: auto auto;
