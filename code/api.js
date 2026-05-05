@@ -1,6 +1,6 @@
+// api.js - FIX TRACKING URL
 const API_BASE = "https://data-bundle-backend.onrender.com";
 
-// Generic request handler (centralized, safe)
 async function request(url, options = {}) {
   try {
     const res = await fetch(url, {
@@ -8,32 +8,25 @@ async function request(url, options = {}) {
       ...options
     });
 
-    // Handle non-JSON responses (VERY IMPORTANT)
     const text = await res.text();
-
     let data;
     try {
       data = JSON.parse(text);
     } catch {
-      throw new Error(`Invalid JSON response: ${text}`);
+      throw new Error(`Invalid JSON response: ${text.substring(0, 100)}`);
     }
 
     if (!res.ok) {
-      throw new Error(data.message || `Request failed (${res.status})`);
+      throw new Error(data.error || data.message || `Request failed (${res.status})`);
     }
 
     return data;
-
   } catch (err) {
     console.error("API Error:", err.message);
     throw err;
   }
 }
 
-
-// ==========================
-// PAYMENT INIT
-// ==========================
 export async function createPayment(payload) {
   return request(`${API_BASE}/api/payments/create`, {
     method: "POST",
@@ -41,24 +34,16 @@ export async function createPayment(payload) {
   });
 }
 
-
-// ==========================
-// ORDER STATUS
-// ==========================
 export async function getOrder(reference) {
   return request(`${API_BASE}/api/orders/${reference}`);
 }
 
-
-// ==========================
-// TRACK ORDER
-// ==========================
+// ✅ FIXED: Proper URL path
 export async function trackOrder(query) {
-  return request(`${API_BASE}/track-order`, {
+  return request(`${API_BASE}/api/orders/track-order`, {
     method: "POST",
     body: JSON.stringify({ query })
   });
 }
-
 
 console.log("API service loaded...");

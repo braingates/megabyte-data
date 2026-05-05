@@ -52,11 +52,11 @@ const data = await res.json();
 
       resultBox.innerHTML = `
       <p><b>Reference:</b> ${data.reference}</p>
-      <p>Phone: ${data.phone}</p>
-      <p>Network: ${data.network}</p>
-      <p>Bundle: ${data.bundle}</p>
-       <div>Status: <p class="status ${data.vendorStatus}">${data.orderStatus}</p></div>
-      <p>Date: ${new Date(data.createdAt).toLocaleString()}</p>
+      <p><b>Phone:</b> ${data.phone}</p>
+      <p><b>Network:</b> ${data.network}</p>
+      <p><b>Bundle:</b> ${data.bundle}</p>
+      <p><b>Status: </b><span class="status ${data.vendorStatus}">${data.orderStatus}</span></p>
+      <p><b>Date:</b> ${new Date(data.createdAt).toLocaleString()}</p>
   
     
 `;
