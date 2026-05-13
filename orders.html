@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recent Orders</title>
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+  <main class="orders-page">
+    <header class="page-head">
+      <a href="index.html" class="track-link track-link-secondary">Back to Store</a>
+      <h1>Recent Orders</h1>
+      <p>Enter your phone number or order reference to view only your orders.</p>
+    </header>
+
+    <section class="dashboard">
+      <div class="dashboard-search">
+        <input type="text" id="ordersSearchInput" placeholder="Search by phone number or order reference">
+        <button id="ordersSearchBtn">Search</button>
+      </div>
+
+      <p id="ordersEmptyState" class="orders-empty">Empty. No recent orders found for this customer.</p>
+      <div id="ordersCardScroller" class="orders-card-scroller" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script type="module" src="./code/orders.js"></script>
+  <script type="module" src="./admin.js"></script>
+</body>
+</html>
+
+
