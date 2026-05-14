@@ -1627,7 +1627,7 @@ text-shadow: none;
   margin: -8px 0 8px;
 }
 .track-link {
-  display: inline-flex;
+  display: none;
   justify-content: center;
   align-items: center;
   width: fit-content;
