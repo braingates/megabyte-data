@@ -1268,6 +1268,16 @@ button {
     padding: 8px;
   }
 
+  .network img {
+  border-radius: 12px;
+}
+
+.network{
+  width: 190px;
+  height: 210px;
+  margin: 6px;
+}
+
 }
 
 .track-container {
@@ -1627,6 +1637,16 @@ text-shadow: none;
 
    .track-container {
   padding: 30px;
+}
+
+  .network img {
+  border-radius: 16px;
+}
+
+.network{
+  width: 200px;
+  height: 220px;
+  margin: 8px;
 }
 
     } 
@@ -2918,10 +2938,33 @@ body {
 @media (max-width: 360px) {
   .bundle-container {
     grid-template-columns: 1fr;
+     gap: 12px;
+     padding: 12px;
   }
   .bundle {
     min-height: 178px;
+    padding: 25px 10px;
+    gap: 6px;
+    border-radius: 12px;
   }
+  .bundle h2 {
+    font-size: 30px;
+  }
+  .package {
+    font-size: 30px;
+  }
+  .validity {
+    font-size: 12px;
+  }
+  .price {
+    font-size: 24px;
+  }
+  .buy-btn {
+    max-width: none;
+    width: 100%;
+    font-size: 22px;
+  }
+
 .networks {
     display: flex;
     flex-direction: row;
@@ -2934,7 +2977,7 @@ body {
     height: auto;
     min-width: 0;
     max-width: none;
-    padding: 10px 6px;
+    padding: 2px 6px;
     border-radius: 12px;
     border-radius: 8px;
     flex: 1;
@@ -2945,5 +2988,6 @@ body {
   
   .network img {
     width: 48px;
+    border-radius: 12px;
   }
 }
