@@ -13,6 +13,11 @@
 </head>
 <body>
 
+  <!-- Global Loading Overlay -->
+  <div id="globalLoader" class="loading-overlay hidden">
+    <div class="spinner-large"></div>
+    <p>Please wait...</p>
+  </div>
 
   <nav class="navbar">
     
@@ -33,18 +38,19 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="#">Home</a></li>
       <li><a href="#buy-data">Buy Data</a></li>
-      <li><a href="#about">About us</a></li>
-      <li><a href="#quick-links">Contact</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#quick-links">Contact US</a></li>
     </ul>
 
     <!-- Right Actions -->
-    <div class="nav-right">
-      <div class="theme-toggle" id="themeToggle">
+     <div class="nav-right-container"></div>
+     <div class="theme-toggle" id="themeToggle">
         <span id="lightIcon"><i class="fas fa-moon"></i></span>
         <span id="darkIcon"><i class="fas fa-sun"></i></span>
         
-      
       </div>
+    <div class="nav-right">
+      
 
         <div class="menu-toggle" id="menuToggle">
   <i class="fas fa-bars" id="openIcon"></i>
@@ -75,9 +81,9 @@
 
 
   <div class="features">
-    <div class="feature">⚡ Instant Delivery</div>
-    <div class="feature">🔒 Secure Payments</div>
-    <div class="feature">💰 Best Prices</div>
+    <div class="feature"><i class="fas fa-bolt"></i> Instant Delivery</div>
+    <div class="feature"><i class="fas fa-lock"></i> Secure Payments</div>
+    <div class="feature"><i class="fas fa-tags"></i> Best Prices</div>
   </div>
 
 </div>
@@ -89,23 +95,30 @@
 
 
   <div class="track-container">
-  <a href="orders.html"><button class="tab-btn" data-tab="ordersTab">View Recent Orders</button></a>
-
-  <h2>Track Your Order</h2>
-  <span>Enter your phone number or order ID to check Status</span>
-
-  <div class="search-box">
-    <input type="text" id="trackSearchInput"
-           placeholder="Enter Order ID or Phone Number">
-    
-    <button id="trackSearchBtn">Track</button>
-  </div>
-
-  <div id="trackResult" class="result-box"></div>
+  <a href="orders.html" class="track-link">View Recent Orders</a>
+ <!-- <a href="admin.html" class="track-link track-link-secondary">Admin Dashboard</a>-->
+ 
 
 </div>
+ <section class="system">
+    <div class="system-status-bar">
+      <div class="status-top">
+        <div class="status-left">
+          <div class="status-dot"></div>
+          <span>System Online 24/7</span>
+        </div>
+        <div id="liveTimer" class="live-timer">00:00:00</div>
+      </div>
+      <div class="status-message">
+       Delivery is fast and reliable. Place your order now and receive your bundle within the next 35 minutes.
+      </div>
+    </div>
+
+  </section>
+
   <section class="network-section-1" id="buy-data">
 
+    
    <div class="network-container">
      <h1>Select Network</h1>
     <div class="networks">
@@ -165,20 +178,28 @@
   <p><strong>Network:</strong> <span id="checkoutNetwork"></span></p>
   <p><strong>Bundle:</strong> <span id="checkoutBundle"></span></p>
   <p><strong>Price:</strong> <span id="checkoutPrice"></span></p>
-
-  <hr>
-
-  <!--<p><strong>Processing Fee:</strong><span> GHS</span> <span id="checkoutFee">0.00</span></p>
-  <p><strong>Total:</strong> <span>GHS</span> <span id="checkoutTotal">0.00</span></p>-->
-
-<p>Fee: <span id="checkoutFee"></span></p>
-<p>Total: <span id="checkoutTotal"></span></p>
+<p><strong>Fee:</strong> <span id="checkoutFee"></span></p>
+ <hr>
+<p><strong>Total:</strong> <span id="checkoutTotal"></span></p>
 </div>
 
     <input 
       type="tel" 
       id="phoneNumber" 
       placeholder="Enter phone number (e.g. 024XXXXXXX)" 
+    />
+    <p id="phoneNetworkError" class="field-error" aria-live="polite"></p>
+
+    <input 
+      type="text" 
+      id="customerName" 
+      placeholder="Customer name (optional)" 
+    />
+
+    <input 
+      type="email" 
+      id="customerEmail" 
+      placeholder="Email address (optional)" 
     />
 
     <button id="confirmPurchase" class="confirm-btn">Confirm Purchase</button>
@@ -288,7 +309,7 @@
     <h2>MTN</h2>
     <p class="package">2GB</p>
     <p class="validity">90 days validity</p>
-    <p class="price">GHS 9.78</p>
+    <p class="price">GHS 9.80</p>
     <button class="buy-btn">Buy</button>
   </div>
 
@@ -304,7 +325,7 @@
     <h2>MTN</h2>
     <p class="package">4GB</p>
     <p class="validity">90 days validity</p>
-    <p class="price">GHS 17.95</p>
+    <p class="price">GHS 18.90</p>
     <button class="buy-btn">Buy</button>
   </div>
 
@@ -337,7 +358,7 @@
     <h2>MTN</h2>
     <p class="package">10GB</p>
     <p class="validity">90 days validity</p>
-    <p class="price">GHS 44.60</p>
+    <p class="price">GHS 44.90</p>
     <button class="buy-btn">Buy</button>
   </div>
 
@@ -524,7 +545,6 @@
 </section>
 
 <section class="bundle-section"  id="airteltigo">
-
   <h1>AirtelTigo Bundles</h1>
   <div class="bundle-container">  
   <div class="bundle  airteltigo-bundle">
@@ -665,7 +685,6 @@
   </div>
 
  </div>
-  
  </section>
 
  <div class="notice-container"><p class="notice">Please note that, we do not refund for wrong numbers.
@@ -676,14 +695,18 @@
   </div>
 
 <section class="intro-section" id="about">
+  <div class="intro-heading">
+    <p>Built for dependable data delivery</p>
+    <h2>Why customers trust Megabyte Station</h2>
+  </div>
+
   <div class="intro-container">
-    <h2>Why choose us</h2>
-    <div class="intro"><div class="check-icon"><i class="fas fa-database"></i></div><p>Supports all networks (MTN, Telecel & AT)</p></div>
-    <div class="intro"><div class="check-icon"><i class="fas fa-rocket"></i></div><p>Fast delivery (Within 35 minutes)</p></div>
-    <div class="intro"><div class="check-icon"><i class="fas fa-mobile"></i></div><p><span>24/7</span> Customer service</p></div>
-    <div class="intro"><div class="check-icon"><i class="fas fa-lightbulb"></i></div><p>Affordable prices (Save 60% on bundle)</p></div>
-    <div class="intro"><div class="check-icon"><i class="fas fa-clock"></i></div><p> Reliable service</p></div>
-    <div class="intro"><div class="check-icon"><i class="fas fa-lock"></i></div><p>Secure payment gateway</p></div>
+    <div class="intro"><div class="check-icon"><i class="fas fa-shield-alt"></i></div><p>Secure checkout with verified order tracking from payment to delivery.</p></div>
+    <div class="intro"><div class="check-icon"><i class="fas fa-network-wired"></i></div><p>Reliable bundles for MTN, Telecel, and AirtelTigo in one simple place.</p></div>
+    <div class="intro"><div class="check-icon"><i class="fas fa-bolt"></i></div><p>Fast processing with clear updates when your bundle is being delivered.</p></div>
+    <div class="intro"><div class="check-icon"><i class="fas fa-headset"></i></div><p>Responsive support when you need help with an order or payment.</p></div>
+    <div class="intro"><div class="check-icon"><i class="fas fa-receipt"></i></div><p>Transparent pricing with order summaries before every payment.</p></div>
+    <div class="intro"><div class="check-icon"><i class="fas fa-check-circle"></i></div><p>Network number checks help prevent wrong bundle purchases.</p></div>
   </div>
  
 </section>
