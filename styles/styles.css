@@ -52,7 +52,7 @@
   left: 0;
   right: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 10000;
 }
 
 
@@ -60,12 +60,13 @@
   color: rgb(12, 159, 208);
   display: flex;
   align-items: center;
-
+  text-decoration: none;
 }
 .logo img {
   height: 45px;
   width: auto;
   border-radius: 10px;
+  text-decoration: none;
 }
 
 
@@ -363,8 +364,8 @@
       border-radius: 6px;
     }
     .feature i {
-      color: goldenrod;
-      text-shadow: gray 1px 1px px ;
+      color: rgb(232, 188, 10);
+      
     }
 
   .notice-container {
@@ -938,8 +939,8 @@ margin: 12px;
 }
 
 .status-dot {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   background-color: #22c55e;
   border-radius: 50%;
   box-shadow: 0 0 10px #22c55e;
@@ -1122,8 +1123,11 @@ margin: 12px;
   margin: 15px 0;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: #1e293b;
+  background-color: red;
   font-size: 16px;
+  background: #ffffff;
+  color: #0f172a;
+
 }
 
 /* CONFIRM BUTTON */
@@ -1170,9 +1174,7 @@ margin: 12px;
   position: relative;
   animation: slideUp 0.3s ease;
 }
-.modal-content input {
-  color: white;
-}
+
 /* ANIMATION */
 @keyframes slideUp {
   from {
@@ -1360,6 +1362,8 @@ button {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: left;
 }
+
+
 
 .checkout-details span {
   color: var(--faint-light);
@@ -1561,6 +1565,7 @@ footer{
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  
 }
 
 .intro-container h2 {
@@ -1568,7 +1573,9 @@ footer{
   width: 100%;
   font-size: clamp(1.8rem, 4vw, 3rem);
   letter-spacing: 0;
-  z-index: 1000;
+  position: relative;
+  
+  
 }
 
 .intro {
@@ -2099,7 +2106,7 @@ td {
 }
 .bundle .price,
 .price {
-  font-size: 20px;
+  font-size: 16px;
 }
 
 @media (max-width: 480px) {
@@ -2109,11 +2116,11 @@ td {
 
   .bundle .price,
   .price {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .network {
-  height: auto;
+  height: 200px;
   width: auto
 }
 
@@ -2238,6 +2245,10 @@ footer {
   footer {
     padding-top: 36px;
   }
+
+  .bundle h2 {
+    font-size: 20px;
+  }
 }
 
 /* Modern body surface */
@@ -2252,6 +2263,7 @@ body {
     radial-gradient(circle at 90% 14%, rgba(0, 125, 197, 0.16), transparent 26rem),
     radial-gradient(circle at 50% 55%, rgba(34, 197, 94, 0.06), transparent 24rem),
     linear-gradient(180deg, #020617 0%, #07111f 44%, #020617 100%);
+   
 }
 
 body::before {
@@ -2360,10 +2372,13 @@ body.light-theme::before {
   background-image:
     linear-gradient(rgba(15, 23, 42, 0.045) 1px, transparent 1px),
     linear-gradient(90deg, rgba(15, 23, 42, 0.045) 1px, transparent 1px);
+    
 }
+
+
 body.light-theme .navbar {
   background: rgba(255, 255, 255, 0.9);
-  border-bottom-color: rgba(15, 23, 42, 0.1);
+  border-bottom-color: rgba(15, 23, 42, 0.5);
 }
 body.light-theme .nav-links li a,
 body.light-theme .theme-toggle,
@@ -2524,10 +2539,13 @@ body.light-theme .nav-links.active {
 }
 body.light-theme .hook h1,
 body.light-theme .network-container h1,
-body.light-theme .bundle-section h1,
-body.light-theme .intro-heading h2,
 body.light-theme .track-container h2 {
   color: #0f172a;
+}
+
+body.light-theme .intro-heading h2,
+body.light-theme .bundle-section h1  {
+  color: white;
 }
 body.light-theme .hook h1 span {
   color: #007dc5;
@@ -2568,7 +2586,7 @@ body.light-theme .notice-container {
   background: rgba(255, 255, 255, 0.78);
   box-shadow: 0 16px 36px rgba(15, 23, 42, 0.1);
 }
-body.light-theme .modal-content input,
+
 body.light-theme #trackSearchInput,
 body.light-theme .search-container input,
 body.light-theme .search-container select,
@@ -2579,6 +2597,8 @@ body.light-theme .controls select {
   border-color: #cbd5e1;
   color: #0f172a;
 }
+
+
 body.light-theme .whatsapp-float {
   box-shadow: 0 18px 45px rgba(37, 211, 102, 0.18);
 }
@@ -2721,8 +2741,15 @@ body {
   }
   
   .network img {
-    width: 48px;
-  }.networks {
+    width: 56px;
+    border-radius: 12px;
+  }
+    .network img:hover {
+    width: 58px;
+    border-radius: 12px;
+  }
+  
+  .networks {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -2740,13 +2767,17 @@ body {
     flex: 1;
     border-radius: 16px;
   }
+  .network h2 {
+    font-size: 20px;
+  }
   .network p {
     display: flex;
   }
   
-  .network img {
-    width: 48px;
+  .price {
+    font-size: 24px;
   }
+
   .bundle-container {
     width: min(100%, calc(100vw - 18px));
     margin-inline: auto;
@@ -2845,23 +2876,33 @@ body {
     width: 100%;
     margin-inline: 0;
   }
+  .search-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+  }
   .networks {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     flex-wrap: nowrap;
-    gap: 8px;
+    gap: 6px;
   }
   .network {
     width: auto;
     height: auto;
     min-width: 0;
     max-width: none;
-    padding: 10px 6px;
+    padding: 10px 8px ;
     border-radius: 12px;
     border-radius: 8px;
     flex: 1;
     border-radius: 16px;
+    margin: 4px;
+  }
+  .network h2 {
+    font-size: 16px;
   }
   .network p {
     display: none;
@@ -2869,10 +2910,13 @@ body {
 
   .network img {
     width: 48px;
+    border-radius: 12px;
   }
-  .network h2 {
-    font-size: clamp(14px, 4vw, 18px);
+    .network img:hover {
+    width: 50px;
+    border-radius: 12px;
   }
+
   .bundle-container {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
@@ -2975,46 +3019,59 @@ body {
     border-radius: 12px;
   }
   .bundle h2 {
-    font-size: 25px;
+    font-size: 30px;
   }
   .package {
-    font-size: 22px;
+    font-size: 30px;
   }
   .validity {
     font-size: 12px;
   }
   .price {
-    font-size: 24px;
+    font-size: 25px;
   }
   .buy-btn {
     max-width: none;
     width: 100%;
     font-size: 22px;
+    margin-right: 10px;
+    margin-left: 10px;
   }
 
-.networks {
+  .networks {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     flex-wrap: nowrap;
-    gap: 8px;
+    gap: 6px;
+    
   }
   .network {
     width: auto;
-    height: 200px;
+    height: auto;
     min-width: 0;
     max-width: none;
-    padding: 2px 6px;
+    padding: 6px 6px ;
     border-radius: 12px;
     border-radius: 8px;
     flex: 1;
+    border-radius: 16px;
+    margin: 2px;
+  }
+  .network h2 {
+    display: none;
   }
   .network p {
     display: none;
   }
-  
+
   .network img {
+    width: 46px;
+    border-radius: 10px;
+  }
+
+  .network img:hover {
     width: 48px;
-    border-radius: 12px;
+    border-radius: 10px;
   }
 }
