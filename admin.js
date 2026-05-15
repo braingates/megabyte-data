@@ -11,28 +11,26 @@ let totalPages = 1;
 let currentFilters = {};
 
 function getHeaders() {
-  const apiKey = localStorage.getItem("megabyteAdminKey") || "";
-  const headers = {
+  return {
     "Content-Type": "application/json"
   };
-  
-  if (apiKey) {
-    headers["x-api-key"] = apiKey;
-  }
-  
-  return headers;
+}
+
+async function adminLogin() {
+  // Redirect to the professional login page instead of using prompt()
+  window.location.href = "login.html";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Verify admin key is set
-  if (!localStorage.getItem("megabyteAdminKey")) {
-    console.warn("⚠️ Admin API key not set. Set it with: localStorage.setItem('megabyteAdminKey', 'your_api_key')");
-  }
-  
   loadStats();
   loadOrders();
   loadTrends();
   loadVendorHealth();
+  
+  // Handle Unauthorized responses globally
+  const handleAuthError = (status) => {
+    if (status === 401) adminLogin();
+  };
 
   if (document.getElementById("refreshBtn")) {
     document.getElementById("refreshBtn").addEventListener("click", loadOrders);
@@ -61,6 +59,7 @@ async function loadStats() {
     });
     
     if (!res.ok) {
+      if (res.status === 401) return adminLogin();
       const errorData = await res.json().catch(() => ({}));
       console.error(`❌ Stats error: ${res.status}`, errorData);
       throw new Error(errorData.error || `Stats error: ${res.status}`);
@@ -98,6 +97,7 @@ async function loadOrders() {
     });
     
     if (!res.ok) {
+      if (res.status === 401) return adminLogin();
       const errorData = await res.json().catch(() => ({}));
       console.error(`❌ Orders error: ${res.status}`, errorData);
       throw new Error(`Orders error: ${res.status}`);
@@ -125,6 +125,7 @@ async function loadTrends() {
     });
     
     if (!res.ok) {
+      if (res.status === 401) return adminLogin();
       const errorData = await res.json().catch(() => ({}));
       console.error(`❌ Trends error: ${res.status}`, errorData);
       throw new Error(`Trends error: ${res.status}`);
@@ -147,6 +148,7 @@ async function loadVendorHealth() {
     });
     
     if (!res.ok) {
+      if (res.status === 401) return adminLogin();
       const errorData = await res.json().catch(() => ({}));
       console.error(`❌ Health error: ${res.status}`, errorData);
       throw new Error(`Health error: ${res.status}`);
