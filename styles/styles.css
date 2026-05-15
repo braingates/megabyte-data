@@ -685,7 +685,6 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-
   width: 60px;
   height: 60px;
   background: linear-gradient(135deg, #25d366, #128c7e);
@@ -717,6 +716,18 @@
   0% { transform: scale(1); }
   50% { transform: scale(1.08); }
   100% { transform: scale(1); }
+}
+
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 body.light-theme {
@@ -927,8 +938,8 @@ margin: 12px;
 }
 
 .status-dot {
-  width: 10px;
-  height: 10px;
+  width: 14px;
+  height: 14px;
   background-color: #22c55e;
   border-radius: 50%;
   box-shadow: 0 0 10px #22c55e;
@@ -940,6 +951,8 @@ margin: 12px;
   font-family: 'Times New Roman', Times, serif;
   letter-spacing: 0.5px;
   font-size: 23px;
+  
+  
 }
 
 .network-container {
@@ -1227,7 +1240,7 @@ margin: 12px;
 button {
   width: 100%;
   padding: 12px;
-  margin-top: 15px;
+  margin-top: 20px;
   border: none;
   border-radius: 10px;
   font-size: 15px;
@@ -1905,7 +1918,7 @@ body {
   border-radius: 24px;
   background:
     linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(8, 13, 28, 0.86)),
-    url("../images/megabyte-logo.jpeg") center/180px no-repeat;
+    url("./images/megabyte-logo.jpeg") center/180px no-repeat;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
 }
 
@@ -2081,12 +2094,12 @@ td {
 }
 
 .bundle h2 {
-  font-size: 22px;
+  font-size: 24px;
   margin-bottom: 12px;
 }
 .bundle .price,
 .price {
-  font-size: 16px;
+  font-size: 20px;
 }
 
 @media (max-width: 480px) {
@@ -2096,7 +2109,12 @@ td {
 
   .bundle .price,
   .price {
-    font-size: 14px;
+    font-size: 20px;
+}
+
+.network {
+  height: auto;
+  width: auto
 }
 
 }
@@ -2611,6 +2629,9 @@ body.light-theme .check-icon {
   border-color: #fde68a;
   color: #b45309;
 }
+body.light-theme .live-timer {
+  color: orangered;
+}
 /* Responsive safety layer */
 img,
 video,
@@ -2954,10 +2975,10 @@ body {
     border-radius: 12px;
   }
   .bundle h2 {
-    font-size: 30px;
+    font-size: 25px;
   }
   .package {
-    font-size: 30px;
+    font-size: 22px;
   }
   .validity {
     font-size: 12px;
