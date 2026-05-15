@@ -1,6 +1,8 @@
+import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
+
 // Fallback to localhost if developing locally to prevent ERR_NAME_NOT_RESOLVED
 const API_BASE = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-  ? "http://localhost:5001/api"
+  ? `http://${window.location.hostname}:5001/api`
   : "https://data-bundle-backend.onrender.com/api";
 
 console.log("🔌 API Base:", API_BASE);
@@ -26,12 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
   loadOrders();
   loadTrends();
   loadVendorHealth();
+  initSocket();
   
-  // Handle Unauthorized responses globally
-  const handleAuthError = (status) => {
-    if (status === 401) adminLogin();
-  };
-
   if (document.getElementById("refreshBtn")) {
     document.getElementById("refreshBtn").addEventListener("click", loadOrders);
   }
@@ -45,15 +43,45 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("statusFilter").addEventListener("change", filterOrders);
   }
 
+  // Safety fallback: refresh every 5 minutes instead of aggressive polling
   setInterval(() => {
     loadStats();
     loadVendorHealth();
-  }, 30000);
+    loadOrders();
+  }, 300000);
 });
+
+function initSocket() {
+  const socket = io(API_BASE.replace('/api', ''), {
+    withCredentials: true
+  });
+
+  socket.on("connect", () => {
+    console.log("✅ Admin Socket connected");
+    socket.emit("subscribeAdmin");
+  });
+
+  socket.on("orderUpdate", (data) => {
+    console.log("🔄 Order update received via Socket:", data);
+    loadOrders();
+    loadStats();
+  });
+
+  socket.on("paymentConfirmed", (data) => {
+    console.log("💰 Payment confirmed via Socket:", data);
+    loadOrders();
+    loadStats();
+  });
+
+  socket.on("vendorHealth", (data) => {
+    console.log("🏥 Vendor health update received via Socket");
+    updateVendorHealthUI(data);
+  });
+}
 
 async function loadStats() {
   try {
-    const res = await fetch(`${API_BASE}/admin/dashboard/stats`, { 
+    const res = await fetch(`${API_BASE}/admin/dashboard/stats`, {
       headers: getHeaders(),
       credentials: "include"
     });
@@ -156,19 +184,22 @@ async function loadVendorHealth() {
     
     const data = await res.json();
     console.log("✅ Vendor health loaded:", data);
-    
-    const getDot = (status) => status === 'up' || status === 'online' ? "<span class='green'>●</span>" : "<span class='red'>●</span>";
-    
-    const vendorHealthEl = document.getElementById("vendorHealth");
-    if (vendorHealthEl) {
-      vendorHealthEl.innerHTML = `
-        MTN: ${getDot(data.MTN?.status)} ${data.MTN?.status || 'Offline'} | 
-        Telecel: ${getDot(data.Telecel?.status)} ${data.Telecel?.status || 'Offline'} | 
-        AirtelTigo: ${getDot(data.AirtelTigo?.status)} ${data.AirtelTigo?.status || 'Offline'}
-      `;
-    }
+    updateVendorHealthUI(data);
   } catch (err) {
     console.error("❌ Health check failed:", err);
+  }
+}
+
+function updateVendorHealthUI(data) {
+  const getDot = (status) => status === 'up' || status === 'online' ? "<span class='green'>●</span>" : "<span class='red'>●</span>";
+  
+  const vendorHealthEl = document.getElementById("vendorHealth");
+  if (vendorHealthEl) {
+    vendorHealthEl.innerHTML = `
+      MTN: ${getDot(data.MTN?.status)} ${data.MTN?.status || 'Offline'} | 
+      Telecel: ${getDot(data.Telecel?.status)} ${data.Telecel?.status || 'Offline'} | 
+      AirtelTigo: ${getDot(data.AirtelTigo?.status)} ${data.AirtelTigo?.status || 'Offline'}
+    `;
   }
 }
 
@@ -275,18 +306,25 @@ function renderChart(data) {
 
     const labels = data.map(d => d.label);
     const revenue = data.map(d => parseFloat(d.revenue));
-    const profit = data.map(d => parseFloat(d.profit));
+    const orders = data.map(d => d.totalOrders);
 
     new Chart(ctx, {
       type: "line",
       data: {
         labels,
         datasets: [
-          { label: "Revenue", data: revenue, borderColor: "#2563eb", tension: 0.3 },
-          { label: "Profit", data: profit, borderColor: "#10b981", tension: 0.3 }
+          { label: "Revenue (GHS)", data: revenue, borderColor: "#2563eb", tension: 0.3, yAxisID: 'y' },
+          { label: "Total Orders", data: orders, borderColor: "#10b981", tension: 0.3, yAxisID: 'y1' }
         ]
       },
-      options: { responsive: true, maintainAspectRatio: false }
+      options: { 
+        responsive: true, 
+        maintainAspectRatio: false,
+        scales: {
+          y: { type: 'linear', display: true, position: 'left', title: { display: true, text: 'GHS' } },
+          y1: { type: 'linear', display: true, position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: 'Count' } }
+        }
+      }
     });
   } catch (err) {
     console.error("Chart rendering error:", err);

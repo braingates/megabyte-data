@@ -11,7 +11,7 @@
     <header class="page-head">
       <a href="index.html" class="track-link track-link-secondary">Back to Store</a>
       <h1>Recent Orders</h1>
-      <p>Enter your phone number or order reference to view your orders.</p>
+      <p>Enter your phone number or order reference to view only your orders.</p>
     </header>
 
     <section class="dashboard">
@@ -20,14 +20,11 @@
         <button id="ordersSearchBtn">Search</button>
       </div>
 
-      <p id="ordersEmptyState" class="orders-empty">Empty. No recent orders found for you. Place and order and you will see it here!</p>
+      <p id="ordersEmptyState" class="orders-empty">Empty. No recent orders found for this customer.</p>
       <div id="ordersCardScroller" class="orders-card-scroller" aria-live="polite"></div>
     </section>
   </main>
 
   <script type="module" src="./code/orders.js"></script>
-  <script type="module" src="./admin.js"></script>
 </body>
 </html>
-
-
