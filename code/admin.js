@@ -30,9 +30,11 @@ const vendorCostRates = {
 function estimateProfit(order) {
   if (order.paymentStatus !== "completed") return 0;
 
-  const rate = vendorCostRates[order.network] || 0.87;
-  const vendorCost = Number(order.price || order.totalAmount || 0) * rate;
-  return Number((Number(order.totalAmount || 0) - vendorCost).toFixed(2));
+  // Use actual vendorCost from the backend if available, otherwise estimate
+  const actualVendorCost = order.vendorCost || (Number(order.amount || 0) * (vendorCostRates[order.network] || 0.87));
+  const customerAmount = Number(order.amount || 0);
+  
+  return Number((customerAmount - actualVendorCost).toFixed(2));
 }
 
 function getFilteredOrders() {

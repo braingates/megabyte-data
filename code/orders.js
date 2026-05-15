@@ -101,7 +101,7 @@ function renderOrders(orders) {
       <footer>
         <div class="order-ids" style="display: flex; flex-direction: column; gap: 2px;">
           <span>Ref: ${order.shortTrackingId || 'N/A'}</span>
-          <span class="tracking-id">Track ID: <strong>${order.vendorReference || order.trackingId || 'N/A'}</strong></span>
+        
         </div>
         <time style="margin-top: 5px; display: block;">${new Date(order.createdAt).toLocaleString()}</time>
       </footer>
