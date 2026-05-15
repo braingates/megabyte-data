@@ -1,4 +1,4 @@
-import { OrderService, formatMoney, getFlash } from "./api.js";
+import { OrderService, formatMoney, getFlash, PaymentService, setFlash } from "./api.js";
 
 function qs(selector) {
   return document.querySelector(selector);
@@ -141,6 +141,14 @@ function bindNavigation() {
     menuToggle.classList.toggle("active");
     navLinks?.classList.toggle("active");
   });
+
+  // Close menu when a link is clicked (primarily for mobile view)
+  navLinks?.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      menuToggle?.classList.remove("active");
+      navLinks?.classList.remove("active");
+    });
+  });
 }
 
 function showNetworkBundles(networkId, skipScroll = false) {
@@ -260,8 +268,15 @@ function renderRecentOrders(targetSelector = "#recentOrdersList") {
   const target = qs(targetSelector);
   const emptyState = qs("#ordersEmptyState");
   if (!target) return;
-
-  const orders = OrderService.getOrders().slice(0, 10);
+  const savedPhone = localStorage.getItem("megabyteStationCustomerLookup");
+  
+  // Only show recent orders if they belong to the customer currently using the browser
+  const orders = OrderService.getOrders()
+    .filter(order => {
+      if (!savedPhone) return false;
+      return order.phone === savedPhone || order.recipientNumber === savedPhone;
+    })
+    .slice(0, 10);
   
   // Toggle the static empty state element if it exists (used in orders.html)
   if (emptyState) {
@@ -302,6 +317,55 @@ function bindLiveStatus() {
   setInterval(update, 1000);
 }
 
+/**
+ * Checks if there's a payment reference waiting for verification
+ */
+async function initVerificationBar() {
+  const bar = qs("#verifyBar");
+  const btn = qs("#verifyBarBtn");
+  const ref = localStorage.getItem("megabyteLastOrderRef");
+
+  // Guard against missing or corrupted reference strings
+  if (!ref || ref === "undefined" || !bar || !btn) return;
+
+  // Show the bar
+  bar.classList.remove("hidden");
+
+  btn.addEventListener("click", async () => {
+    setLoading(true, "#verifyBarBtn");
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/payments/verify/${ref}`);
+      const data = await response.json();
+
+      if (data.success) {
+        localStorage.removeItem("megabyteLastOrderRef");
+        bar.classList.add("hidden");
+        showFlash("Order successfully verified! Check recent orders.", "success");
+        // Refresh tracking if we are on the orders page
+        if (typeof renderRecentOrders === "function") renderRecentOrders();
+      } else if (data.data?.status === 'failed' || data.data?.status === 'abandoned' || data.data?.orderStatus === 'failed') {
+        localStorage.removeItem("megabyteLastOrderRef");
+        bar.classList.add("hidden");
+        showFlash("Payment was unsuccessful. Please try again.", "failed");
+      } else {
+        showFlash("Payment still pending or not found. Please wait a moment.", "info");
+      }
+    } catch (err) {
+      showFlash("Connection error. Try again later.", "failed");
+    } finally {
+      setLoading(false, "#verifyBarBtn");
+    }
+  });
+}
+
+/**
+ * Public helper to clear the verification ref
+ */
+export function clearPendingVerification() {
+  localStorage.removeItem("megabyteLastOrderRef");
+  qs("#verifyBar")?.classList.add("hidden");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   bindNavigation();
   bindNetworkTabs();
@@ -310,6 +374,7 @@ document.addEventListener("DOMContentLoaded", () => {
   bindTracking();
   bindTheme();
   bindLiveStatus();
+  initVerificationBar();
   
   const savedTab = localStorage.getItem("activeNetworkTab") || "mtn";
   showNetworkBundles(savedTab, true);

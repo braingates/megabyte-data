@@ -19,6 +19,12 @@
     <p>Please wait...</p>
   </div>
 
+  <!-- Pending Verification Bar -->
+  <div id="verifyBar" class="verify-bar hidden">
+    <p><i class="fas fa-exclamation-triangle"></i> Payment not confirmed? Click to manually verify your last order.</p>
+    <button id="verifyBarBtn">Verify Order</button>
+  </div>
+
   <nav class="navbar">
     
     <!-- Logo -->
@@ -56,10 +62,6 @@
   <i class="fas fa-bars" id="openIcon"></i>
   <i class="fas fa-times" id="closeIcon"></i>
   </div>
-  
-
-      <div class="login-signup" id="user-actions"></div>
-     </div> 
 
   </nav>
 
@@ -254,7 +256,7 @@
 <div id="paymentModal" class="payment-modal hidden">
   <div class="payment-box">
     <h2>Payment Successful 🎉</h2>
-    <p id="paymentText">Confirming your order...</p>
+    <p id="paymentText">Your order is being processed...</p>
 
     <div class="loader"></div>
 

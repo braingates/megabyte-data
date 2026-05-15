@@ -114,16 +114,12 @@ async function createOrderAndPay() {
       transactionFee: selectedBundle.fee,
       totalAmount: selectedBundle.total,
     };
-
     localStorage.setItem("megabyteStationCustomerLookup", order.recipientNumber);
-    
-    // Directly initiate payment (which creates the order in backend)
     await PaymentService.initializePaystack(order);
   } catch (error) {
     button.disabled = false;
     button.textContent = "Proceed to Payment";
-    const errorMsg = error instanceof Error ? error.message : "Unable to process payment";
-    alert(errorMsg);
+    alert(error.message || "Unable to process payment");
     console.error("Payment error:", error);
   }
 }

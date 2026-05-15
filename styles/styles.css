@@ -103,11 +103,6 @@
   display: none;
   font-size: 24px;
 }
-
-
-/* ==========================
-   MOBILE VIEW
-========================== */
 @media (max-width: 768px) {
 
 .logo img {
@@ -1162,7 +1157,9 @@ margin: 12px;
   position: relative;
   animation: slideUp 0.3s ease;
 }
-
+.modal-content input {
+  color: white;
+}
 /* ANIMATION */
 @keyframes slideUp {
   from {
@@ -2483,12 +2480,23 @@ body.light-theme .theme-toggle #darkIcon {
 }
 body.light-theme .intro span {
   color: #475569;
+  color: #1e293b;
 }
 
+body.light-theme .bundle h2 {
+  color: #0f172a;
+}
 body.light-theme .mtn-bundle h2 {
   color: #92400e;
+  color: #b45309; /* Darker amber for better contrast on white */
 }
 
+body.light-theme .telecel-bundle h2 {
+  color: #b91c1c; /* Robust red for light theme */
+}
+body.light-theme .airteltigo-bundle h2 {
+  color: #1d4ed8; /* Stronger blue for light theme */
+}
 body.light-theme .logo img {
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.14);
 }
@@ -2499,7 +2507,7 @@ body.light-theme .nav-links.active {
 body.light-theme .hook h1,
 body.light-theme .network-container h1,
 body.light-theme .bundle-section h1,
-body.light-theme .intro-container h2,
+body.light-theme .intro-heading h2,
 body.light-theme .track-container h2 {
   color: #0f172a;
 }
@@ -2593,6 +2601,8 @@ body.light-theme .intro-container h2 {
 body.light-theme .intro {
   background: linear-gradient(145deg, #ffffff, #f8fafc);
   color: #334155;
+  color: #1e293b; /* Darker text for "Why Choose Us" cards */
+  color: #1e293b;
   border-color: rgba(15, 23, 42, 0.1);
   box-shadow: 0 18px 42px rgba(15, 23, 42, 0.1);
 }
@@ -2648,12 +2658,6 @@ body {
     display: grid;
     place-items: center;
     flex: 0 0 40px;
-  }
-  .menu-toggle i {
-    font-size: 21px;
-  }
-  .login-signup {
-    display: none;
   }
   .hook {
     margin-inline: 8px;
@@ -2867,6 +2871,7 @@ body {
   .validity {
     font-size: 12px;
   }
+  
   .buy-btn {
     width: 100%;
     max-width: 112px;
@@ -2934,6 +2939,7 @@ body {
     overflow-x: auto;
     white-space: nowrap;
   }
+ 
 }
 @media (max-width: 360px) {
   .bundle-container {
@@ -2974,7 +2980,7 @@ body {
   }
   .network {
     width: auto;
-    height: auto;
+    height: 200px;
     min-width: 0;
     max-width: none;
     padding: 2px 6px;

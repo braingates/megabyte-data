@@ -1,0 +1,38 @@
+{
+  "name": "data-bundle-platform",
+  "version": "2.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "verify": "node verify-startup.js",
+    "start": "node server.js",
+    "dev": "node verify-startup.js && node server.js",
+    "worker": "node src/workers/orderWorker.js",
+    "lint": "eslint src/",
+    "typecheck": "echo 'No typecheck configured'",
+    "postinstall": "echo 'Installation complete'"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "bullmq": "^4.0.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.0.0",
+    "helmet": "^7.2.0",
+    "ioredis": "^5.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^8.0.0",
+    "node-cron": "^4.2.1",
+    "socket.io": "^4.7.0",
+    "winston": "^3.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
