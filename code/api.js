@@ -198,7 +198,7 @@ const PaymentService = {
       throw new Error(data.error || "Unable to initialize Paystack payment");
     }
 
-    window.location.href = data.authorization_url;
+    return data.authorization_url;
   },
 
   async handleCallbackFromUrl() {
