@@ -56,17 +56,13 @@
 }
 
 
-.logo {
-  color: rgb(12, 159, 208);
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-.logo img {
+.navbar img {
   height: 45px;
   width: auto;
-  border-radius: 10px;
   text-decoration: none;
+   border-radius: 8px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  
 }
 
 
@@ -507,6 +503,7 @@
 .dashboard-search input {
   flex: 1;
   padding: 10px;
+  font-size: 16px;
 }
 
 .dashboard-search button {
@@ -1720,8 +1717,9 @@ text-shadow: none;
 }
 
 .track-link-secondary {
-  background: #1e293b;
-  color: #fff;
+  background: gold;
+  color: black;
+  margin-top: 20px;
 }
 
 .flash-message {

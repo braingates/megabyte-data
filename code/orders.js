@@ -15,6 +15,13 @@ function statusClass(status) {
   return `status ${String(status || "pending").toLowerCase()}`;
 }
 
+function formatStatusText(status) {
+  if (!status) return "Pending";
+  const s = String(status).toLowerCase();
+  if (s === 'completed' || s === 'delivered' || s === 'success') return 'Delivered';
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
 /**
  * Main function to manage the OrderTracker lifecycle and trigger UI updates.
  * This is called when the search button is clicked or Enter is pressed.
@@ -58,8 +65,8 @@ function renderOrders(orders) {
     // Show empty state if no orders are provided or found
     // The message depends on whether a query was entered
     emptyState.textContent = query
-      ? "Empty. No recent orders found for this customer."
-      : "Empty. Enter your phone number or order reference to view your recent orders.";
+      ? "No recent orders found for your search."
+      : "Enter your phone number or order reference to view your recent orders.";
     emptyState.style.display = "block";
     scroller.innerHTML = "";
     return;
@@ -68,6 +75,7 @@ function renderOrders(orders) {
   emptyState.style.display = "none";
   scroller.innerHTML = orders.map((order) => `
     <article class="customer-order-card">
+      ${order.orderStatus === 'completed' || order.orderStatus === 'delivered' || order.orderStatus === 'success' ? '<div class="completion-badge">✓ Delivered</div>' : ''}
       <div class="customer-order-top">
         <span class="order-network">${order.network}</span>
         <span class="${statusClass(order.paymentStatus)}">${order.paymentStatus}</span>
@@ -90,12 +98,14 @@ function renderOrders(orders) {
         </div>
         <div>
           <dt>Order Status</dt>
-          <dd class="${statusClass(order.orderStatus)}">${order.orderStatus}</dd>
+          <dd class="${statusClass(order.orderStatus)}">${formatStatusText(order.orderStatus)}</dd>
         </div>
+        ${order.completedAt ? `
         <div>
-          <dt>Vendor Status</dt>
-          <dd class="${statusClass(order.vendorStatus)}">${order.vendorStatus}</dd>
-        </div>
+          <dt>Delivered On</dt>
+          <dd>${new Date(order.completedAt).toLocaleString()}</dd>
+        </div>` : ''}
+  
       </dl>
 
       <footer>
@@ -120,6 +130,6 @@ input.addEventListener("keydown", (event) => {
 
 // Initial state: show empty message, do not auto-load orders
 // The input field is already empty by default due to removing input.value = savedLookup;
-emptyState.textContent = "Empty. Enter your phone number or order reference to view your recent orders.";
+emptyState.textContent = "Enter your phone number or order reference to view your recent orders.";
 emptyState.style.display = "block";
 scroller.innerHTML = "";
