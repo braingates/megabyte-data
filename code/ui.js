@@ -74,6 +74,36 @@ function updateOrderModal(title, message, type = "info") {
   modal.classList.add("flex", type);
 }
 
+/**
+ * Shows a professional confirmation modal and returns a promise
+ */
+function showConfirmModal(message) {
+  return new Promise((resolve) => {
+    const modal = qs("#confirmModal");
+    const msgEl = qs("#confirmModalMessage");
+    const yesBtn = qs("#confirmModalYes");
+    const noBtn = qs("#confirmModalNo");
+
+    if (!modal || !msgEl || !yesBtn || !noBtn) {
+      resolve(confirm(message)); // Fallback
+      return;
+    }
+
+    msgEl.textContent = message;
+    modal.classList.remove("hidden");
+    modal.style.display = "flex";
+
+    const onChoice = (choice) => {
+      modal.classList.add("hidden");
+      modal.style.display = "none";
+      resolve(choice);
+    };
+
+    yesBtn.onclick = () => onChoice(true);
+    noBtn.onclick = () => onChoice(false);
+  });
+}
+
 function renderTrackResults(orders) {
   const result = qs("#trackResult");
   if (!result) return;
@@ -383,4 +413,4 @@ document.addEventListener("DOMContentLoaded", () => {
   if (flash) showFlash(flash.message, flash.type);
 });
 
-export { renderRecentOrders, showFlash, setLoading, updateOrderModal };
+export { renderRecentOrders, showFlash, setLoading, updateOrderModal, showConfirmModal };

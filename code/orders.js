@@ -19,6 +19,7 @@ function formatStatusText(status) {
   if (!status) return "Pending";
   const s = String(status).toLowerCase();
   if (s === 'completed' || s === 'delivered' || s === 'success') return 'Delivered';
+  if (s === 'pending_vendor_balance') return 'Pending Vendor Balance';
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 

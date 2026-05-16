@@ -188,14 +188,21 @@ const PaymentService = {
         phone: order.recipientNumber,
         network: order.network,
         amount: order.totalAmount,
-        bundle: order.bundle,
+        bundle: order.bundle
       }),
     });
 
     const data = await response.json().catch(() => ({}));
 
-    if (!response.ok || !data.authorization_url) {
-      throw new Error(data.error || "Unable to initialize Paystack payment");
+    if (!response.ok) {
+      const err = new Error(data.message || data.error || "Unable to initialize Paystack payment");
+      err.status = response.status;
+      err.code = data.error;
+      throw err;
+    }
+
+    if (!data.authorization_url) {
+      throw new Error("Unable to initialize Paystack payment");
     }
 
     return data.authorization_url;

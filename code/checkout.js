@@ -1,4 +1,5 @@
 import { isNetworkPhone, normalizePhone, OrderService, PaymentService, parseMoney, formatMoney } from "./api.js";
+import { showConfirmModal } from "./ui.js";
 
 const TRANSACTION_FEE_RATE = 0.02;
 
@@ -128,7 +129,13 @@ async function createOrderAndPay() {
   } catch (error) {
     button.disabled = false;
     button.classList.remove("success-btn");
-    button.textContent = "Proceed to Payment";
+    button.innerHTML = "Proceed to Payment";
+
+    if (error.status === 409 && error.code === "duplicate_pending") {
+      alert(error.message);
+      return;
+    }
+
     alert(error.message || "Unable to process payment");
     console.error("Payment error:", error);
   }
