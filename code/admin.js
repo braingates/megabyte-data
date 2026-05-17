@@ -1,4 +1,4 @@
-import { ADMIN_REFRESH_MS, OrderService, formatMoney } from "./api.js";
+import { ADMIN_REFRESH_MS, OrderService, formatMoney } from "./code/api.js";
 
 const totalOrders = document.querySelector("#total");
 const success = document.querySelector("#success");
@@ -30,7 +30,7 @@ const vendorCostRates = {
 function estimateProfit(order) {
   if (order.paymentStatus !== "completed") return 0;
 
-  // Use actual vendorCost from the backend if available, otherwise estimate
+  // Profit = Customer Price minus Vendor API Price
   const actualVendorCost = order.vendorCost || (Number(order.amount || 0) * (vendorCostRates[order.network] || 0.87));
   const customerAmount = Number(order.amount || 0);
   
@@ -63,10 +63,12 @@ async function renderDashboard() {
   await OrderService.fetchOrders(); // This updates the local storage
 
   const orders = getFilteredOrders();
+  // Successful Orders = Payment status is completed
   const successfulOrders = orders.filter((order) => order.paymentStatus === "completed");
   const failedOrders = orders.filter((order) => order.paymentStatus === "failed" || order.orderStatus === "failed" || order.processingStatus === "failed");
   const pendingPaymentOrders = orders.filter((order) => order.paymentStatus === "pending");
-  const totalRevenue = successfulOrders.reduce((sum, order) => sum + Number(order.totalAmount || 0), 0);
+  // Revenue = Sum of successful orders amount
+  const totalRevenue = successfulOrders.reduce((sum, order) => sum + Number(order.amount || 0), 0);
   const totalProfit = successfulOrders.reduce((sum, order) => sum + estimateProfit(order), 0);
 
   totalOrders.textContent = String(orders.length);
@@ -87,7 +89,7 @@ async function renderDashboard() {
       <td>${order.network}</td>
       <td>${order.bundle}</td>
       <td>${order.recipientNumber}</td>
-      <td>${formatMoney(order.totalAmount)}</td>
+      <td>${formatMoney(order.amount)}</td>
       <td>${formatMoney(estimateProfit(order))}</td>
       <td><span class="${statusClass(order.paymentStatus)}">${order.paymentStatus}</span></td>
       <td>${order.vendorService || ""}<br><small>Retries: ${order.retryCount}/${order.maxRetries}</small></td>

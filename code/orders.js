@@ -12,7 +12,8 @@ const savedLookup = localStorage.getItem("megabyteStationCustomerLookup") || "";
 let currentTracker = null;
 
 function statusClass(status) {
-  return `status ${String(status || "pending").toLowerCase()}`;
+  const s = String(status || "pending").toLowerCase();
+  return `status ${s}${['completed', 'success', 'delivered'].includes(s) ? ' status-success' : ''}`;
 }
 
 function formatStatusText(status) {
@@ -74,12 +75,25 @@ function renderOrders(orders) {
   }
   
   emptyState.style.display = "none";
-  scroller.innerHTML = orders.map((order) => `
-    <article class="customer-order-card">
+  scroller.innerHTML = orders.map((order) => {
+    const isCompleted = order.orderStatus === 'completed';
+    const reportMsg = encodeURIComponent(
+      `Hello Admin, I am reporting an order.\n\n` +
+      `Issue: Completed but not received\n` +
+      `Reference: ${order.reference || order.shortTrackingId || 'N/A'}\n` +
+      `Network: ${order.network || 'N/A'}\n` +
+      `Bundle: ${order.bundle || 'N/A'}\n` +
+      `Phone: ${order.phone || 'N/A'}`
+    );
+    const waLink = `https://wa.me/233506932474?text=${reportMsg}`;
+
+    return `
+    <article class="customer-order-card" style="position: relative;">
       ${order.orderStatus === 'completed' || order.orderStatus === 'delivered' || order.orderStatus === 'success' ? '<div class="completion-badge">✓ Delivered</div>' : ''}
+      ${isCompleted ? `<a href="${waLink}" target="_blank" class="report-order-whatsapp" style="position: absolute; top: 10px; right: 10px; background: #25D366; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 4px; z-index: 10;"><i class="fab fa-whatsapp"></i> Report Order</a>` : ''}
       <div class="customer-order-top">
         <span class="order-network">${order.network}</span>
-        <span class="${statusClass(order.paymentStatus)}">${order.paymentStatus}</span>
+        <span class="${statusClass(order.paymentStatus)}">${['completed', 'success'].includes(String(order.paymentStatus).toLowerCase()) ? 'Successful' : order.paymentStatus}</span>
       </div>
 
       <h2>${order.bundle}</h2>
@@ -117,7 +131,7 @@ function renderOrders(orders) {
         <time style="margin-top: 5px; display: block;">${new Date(order.createdAt).toLocaleString()}</time>
       </footer>
     </article>
-  `).join("");
+  `;}).join("");
 }
 
 function updateUIWithOrders(orders) {

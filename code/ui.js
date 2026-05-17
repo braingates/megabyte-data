@@ -5,7 +5,8 @@ function qs(selector) {
 }
 
 function statusClass(status) {
-  return `status ${String(status || "pending").toLowerCase()}`;
+  const s = String(status || "pending").toLowerCase();
+  return `status ${s}${['completed', 'success', 'delivered'].includes(s) ? ' status-success' : ''}`;
 }
 
 let globalApplyFilters = null;
@@ -134,7 +135,7 @@ function renderTrackResults(orders) {
               <td>${order.network}</td>
               <td>${order.bundle}</td>
               <td>${order.phone || order.recipientNumber}</td>
-              <td class="${statusClass(order.paymentStatus)}">${order.paymentStatus}</td>
+              <td class="${statusClass(order.paymentStatus)}">${['completed', 'success'].includes(String(order.paymentStatus).toLowerCase()) ? 'Successful' : order.paymentStatus}</td>
               <td class="${statusClass(order.processingStatus)}">${order.processingStatus}</td>
               <td class="${statusClass(order.deliveryStatus)}">${order.deliveryStatus}</td>
             </tr>
@@ -318,8 +319,21 @@ function renderRecentOrders(targetSelector = "#recentOrdersList") {
     return;
   }
 
-  target.innerHTML = orders.map((order) => `
-    <article class="customer-order-card">
+  target.innerHTML = orders.map((order) => {
+    const isCompleted = order.orderStatus === 'completed';
+    const reportMsg = encodeURIComponent(
+      `Hello Admin, I am reporting an order.\n\n` +
+      `Issue: Completed but not received\n` +
+      `Reference: ${order.reference || order.shortTrackingId || 'N/A'}\n` +
+      `Network: ${order.network || 'N/A'}\n` +
+      `Bundle: ${order.bundle || 'N/A'}\n` +
+      `Phone: ${order.phone || order.recipientNumber || 'N/A'}`
+    );
+    const waLink = `https://wa.me/233506932474?text=${reportMsg}`;
+
+    return `
+    <article class="customer-order-card" style="position: relative;">
+      ${isCompleted ? `<a href="${waLink}" target="_blank" class="report-order-whatsapp" style="position: absolute; top: 10px; right: 10px; background: #25D366; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 4px; z-index: 10;"><i class="fab fa-whatsapp"></i> Report</a>` : ''}
       <div class="customer-order-top">
         <span class="order-network">${order.network}</span>
         <small>${new Date(order.createdAt).toLocaleDateString()}</small>
@@ -327,11 +341,11 @@ function renderRecentOrders(targetSelector = "#recentOrdersList") {
       <div><strong>${order.network}</strong> ${order.bundle}</div>
       <div>${order.phone || order.recipientNumber} - ${formatMoney(order.totalAmount || order.amount)}</div>
       <div class="status-row">
-        <span class="${statusClass(order.paymentStatus)}">${order.paymentStatus}</span>
+        <span class="${statusClass(order.paymentStatus)}">${['completed', 'success'].includes(String(order.paymentStatus).toLowerCase()) ? 'Successful' : order.paymentStatus}</span>
         <span class="${statusClass(order.orderStatus)}">${order.orderStatus}</span>
       </div>
     </article>
-  `).join("");
+  `;}).join("");
 }
 
 function bindLiveStatus() {
